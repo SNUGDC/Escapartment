@@ -13,8 +13,8 @@ public class CameraController : MonoBehaviour
 	{
 		floorHeight = AptCreator.floorHeight;
 		roomWidth = AptCreator.roomWidth;
-		floor = GameObject.Find("Apartment Controller").GetComponent<AptCreator>().floor;
-		roomsInFloor = GameObject.Find("Apartment Controller").GetComponent<AptCreator>().roomsInFloor;
+		floor = GameObject.Find("GameManager").GetComponent<AptCreator>().floor;
+		roomsInFloor = GameObject.Find("GameManager").GetComponent<AptCreator>().roomsInFloor;
 
 		transform.position = new Vector3((roomsInFloor - 1) * roomWidth / 2, (floor - 1) * floorHeight / 2, -10f);
 	}

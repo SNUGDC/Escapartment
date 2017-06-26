@@ -10,22 +10,26 @@ public class AptCreator : MonoBehaviour
 	public int roomsInFloor;
 	public int maxInRoom;
 
-	public static float roomWidth = 15f;
-	public static float floorHeight = 10f;
-	public static float stairWidth = 6f;
+	public const float roomWidth = 15f;
+	public const float floorHeight = 10f;
+	public const float stairWidth = 6f;
 
-	private void Start()
+	private void Awake()
 	{
+		GetComponent<AptController>().Rooms = new GameObject[roomsInFloor, floor];
+
 		for(int fl = 0; fl < floor; fl++)
 		{
 			for(int rif = 0; rif < roomsInFloor; rif++)
 			{
-				GameObject room = Instantiate(Room, new Vector2 (roomWidth * rif, floorHeight * fl), Quaternion.identity);
-				room.GetComponent<RoomInfo>().Unit = new GameObject[maxInRoom];
+				GetComponent<AptController>().Rooms[rif, fl] = Instantiate(Room, new Vector2 (roomWidth * rif, floorHeight * fl), Quaternion.identity);
+				GetComponent<AptController>().Rooms[rif, fl].GetComponent<RoomInfo>().Unit = new GameObject[maxInRoom];
 			}
 
-			GameObject LeftStair = Instantiate(Stair, new Vector2(-(roomWidth + stairWidth)/2, floorHeight * fl), Quaternion.Euler(0, 180, 0));
-			GameObject RightStair = Instantiate(Stair, new Vector2(roomWidth * roomsInFloor + (-roomWidth + stairWidth)/2, floorHeight * fl), Quaternion.identity);
+			//Left Stair
+			Instantiate(Stair, new Vector2(-(roomWidth + stairWidth)/2, floorHeight * fl), Quaternion.Euler(0, 180, 0));
+			//Right Stair
+			Instantiate(Stair, new Vector2(roomWidth * roomsInFloor + (-roomWidth + stairWidth)/2, floorHeight * fl), Quaternion.identity);
 		}
 	}
 }
